@@ -63,6 +63,7 @@ git_repos = {
     "pythondata-cpu-blackparrot":  GitRepo(url="https://github.com/litex-hub/"),
     "pythondata-cpu-cv32e40p":     GitRepo(url="https://github.com/litex-hub/", clone="recursive"),
     "pythondata-cpu-ibex":         GitRepo(url="https://github.com/litex-hub/", clone="recursive", sha1=0xd3d53df),
+    "pythondata-cpu-riskv":        GitRepo(url="https://github.com/fallen/"),
 }
 
 # Script Location / Auto-Update --------------------------------------------------------------------

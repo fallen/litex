@@ -81,6 +81,7 @@ from litex.soc.cores.cpu.vexriscv import VexRiscv
 from litex.soc.cores.cpu.vexriscv_smp import VexRiscvSMP
 from litex.soc.cores.cpu.ibex import Ibex
 from litex.soc.cores.cpu.cv32e40p import CV32E40P
+from litex.soc.cores.cpu.riskv import Riskv
 
 # RISC-V (64-bit)
 from litex.soc.cores.cpu.rocket import RocketRV64
@@ -117,6 +118,7 @@ CPUS = {
     "vexriscv_smp": VexRiscvSMP,
     "ibex"        : Ibex,
     "cv32e40p"    : CV32E40P,
+    "risk.v"      : Riskv,
 
     # RISC-V (64-bit)
     "rocket"      : RocketRV64,
