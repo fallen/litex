@@ -144,7 +144,8 @@ class RemoteServer(EtherboneIPC):
                             "CommUDP":    1,
                         }.get(self.comm.__class__.__name__, 1)
                         bursts = {
-                            "CommUART": ["incr", "fixed"]
+                            "CommUART": ["incr", "fixed"],
+                            "CommHydraUSB": ["incr", "fixed"]
                         }.get(self.comm.__class__.__name__, ["incr"])
                         reads = []
                         for addr, length, burst in _read_merger(record.reads.get_addrs(),
@@ -210,6 +211,9 @@ def main():
     parser.add_argument("--usb-vid",         default=None,           help="Set USB vendor ID.")
     parser.add_argument("--usb-pid",         default=None,           help="Set USB product ID.")
     parser.add_argument("--usb-max-retries", default=10,             help="Number of USB reconecting retries.")
+
+    # USB arguments
+    parser.add_argument("--hydrausb",        action="store_true",    help="Select HydraUSB interface.")
     args = parser.parse_args()
 
 
@@ -277,6 +281,19 @@ def main():
             vid = int(vid, base=0)
         comm = CommUSB(vid=vid, pid=pid, max_retries=args.usb_max_retries, debug=args.debug)
 
+    elif args.hydrausb:
+        from litex.tools.remote.comm_hydrausb import CommHydraUSB
+        if args.usb_pid is None and args.usb_vid is None:
+            print("Need to speficy --usb-vid or --usb-pid, exiting.")
+            exit()
+        print("[CommUSB] vid: {} / pid: {} / ".format(args.usb_vid, args.usb_pid), end="")
+        pid = args.usb_pid
+        if pid is not None:
+            pid = int(pid, base=0)
+        vid = args.usb_vid
+        if vid is not None:
+            vid = int(vid, base=0)
+        comm = CommHydraUSB(vid=vid, pid=pid, max_retries=args.usb_max_retries, debug=args.debug)
     else:
         parser.print_help()
         exit()
